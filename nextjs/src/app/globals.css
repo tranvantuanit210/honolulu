@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ant-picker-input > input,
+.ant-picker-input > input::placeholder,
+.ant-input-number-input-wrap > input::placeholder {
+  color: #424242 !important;
+  font-size: 1rem !important;
+}
+.ant-form-item-explain-error {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
