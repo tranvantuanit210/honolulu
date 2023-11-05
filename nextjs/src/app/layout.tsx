@@ -6,6 +6,7 @@ import StyledComponentsRegistry from "../lib/AntdRegistry";
 import ThemeConfigProvider from "@/config/ThemeConfig";
 import MainLayout from "@/layouts/MainLayout";
 import FormProvider from "@/contexts/form.context";
+import ProviderQueryClient from "@/config/QueryClientConfig";
 
 const inter = Inter({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 
@@ -19,9 +20,11 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
     <body className={inter.className}>
       <ThemeConfigProvider>
         <StyledComponentsRegistry>
-          <FormProvider>
-            <MainLayout>{children}</MainLayout>
-          </FormProvider>
+          <ProviderQueryClient>
+            <FormProvider>
+              <MainLayout>{children}</MainLayout>
+            </FormProvider>
+          </ProviderQueryClient>
         </StyledComponentsRegistry>
       </ThemeConfigProvider>
     </body>
