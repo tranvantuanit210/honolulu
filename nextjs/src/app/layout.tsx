@@ -8,7 +8,10 @@ import MainLayout from "@/layouts/MainLayout";
 import FormProvider from "@/contexts/form.context";
 import ProviderQueryClient from "@/config/QueryClientConfig";
 
-const inter = Inter({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -17,7 +20,7 @@ export const metadata = {
 
 const RootLayout = ({ children }: React.PropsWithChildren) => (
   <html lang="en">
-    <body className={inter.className}>
+    <body className={inter.className} suppressHydrationWarning={true}>
       <ThemeConfigProvider>
         <StyledComponentsRegistry>
           <ProviderQueryClient>
