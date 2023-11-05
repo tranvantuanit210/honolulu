@@ -12,11 +12,12 @@ export interface FormSubmitProps {
   data: DataFormSubmit;
   lastNumberForm: number;
   handleLastNumber: (value: number) => void;
+  isLoading: boolean;
 }
 
 export type DataFormSubmit = Pick<DataForm, "payPlan">;
 
-export default function FormSubmit({ onSubmit, onBack, data, lastNumberForm, handleLastNumber }: FormSubmitProps) {
+export default function FormSubmit({ onSubmit, onBack, data, lastNumberForm, handleLastNumber, isLoading }: FormSubmitProps) {
   const [form] = useForm();
   const onFinish = (values: DataFormSubmit) => {
     onSubmit(values);
@@ -66,7 +67,7 @@ export default function FormSubmit({ onSubmit, onBack, data, lastNumberForm, han
             >
               Back
             </Button>
-            <Button type="primary" htmlType="submit" className="w-1/2 h-10">
+            <Button loading={isLoading} type="primary" htmlType="submit" className="w-1/2 h-10">
               Submit
             </Button>
           </div>

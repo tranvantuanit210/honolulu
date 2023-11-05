@@ -15,36 +15,36 @@ export type DataForm = {
   student1ParticipateType: string[] | null;
   anotherStudent1: string | null;
 
-  student2FirstName?: string | null;
-  student2Age?: number | null;
-  student2BirthDate?: string | null;
-  student2PhoneNumber?: string | null;
-  student2Email?: string | null;
-  student2ParticipateType?: string[] | null;
+  student2FirstName: string | null;
+  student2Age: number | null;
+  student2BirthDate: string | null;
+  student2PhoneNumber: string | null;
+  student2Email: string | null;
+  student2ParticipateType: string[] | null;
   anotherStudent2: string | null;
 
-  student3FirstName?: string | null;
-  student3Age?: number | null;
-  student3BirthDate?: string | null;
-  student3PhoneNumber?: string | null;
-  student3Email?: string | null;
-  student3ParticipateType?: string[] | null;
+  student3FirstName: string | null;
+  student3Age: number | null;
+  student3BirthDate: string | null;
+  student3PhoneNumber: string | null;
+  student3Email: string | null;
+  student3ParticipateType: string[] | null;
   anotherStudent3: string | null;
 
-  student4FirstName?: string | null;
-  student4Age?: number | null;
-  student4BirthDate?: string | null;
-  student4PhoneNumber?: string | null;
-  student4Email?: string | null;
-  student4ParticipateType?: string[] | null;
+  student4FirstName: string | null;
+  student4Age: number | null;
+  student4BirthDate: string | null;
+  student4PhoneNumber: string | null;
+  student4Email: string | null;
+  student4ParticipateType: string[] | null;
   anotherStudent4: string | null;
 
-  student5FirstName?: string | null;
-  student5Age?: number | null;
-  student5BirthDate?: string | null;
-  student5PhoneNumber?: string | null;
-  student5Email?: string | null;
-  student5ParticipateType?: string[] | null;
+  student5FirstName: string | null;
+  student5Age: number | null;
+  student5BirthDate: string | null;
+  student5PhoneNumber: string | null;
+  student5Email: string | null;
+  student5ParticipateType: string[] | null;
 
   homeChurch: string | null;
   agree: string | null;
@@ -56,4 +56,24 @@ export type DataForm = {
   parentSignature: string | null;
   signDate: string | null;
   payPlan: string | null;
+};
+
+export type DataFormBody = Omit<
+  DataForm,
+  | "agree"
+  | "anotherStudent1"
+  | "anotherStudent2"
+  | "anotherStudent3"
+  | "anotherStudent4"
+  | "student1ParticipateType"
+  | "student2ParticipateType"
+  | "student3ParticipateType"
+  | "student4ParticipateType"
+  | "student5ParticipateType"
+> & {
+  student1ParticipateType: string | null;
+  student2ParticipateType: string | null;
+  student3ParticipateType: string | null;
+  student4ParticipateType: string | null;
+  student5ParticipateType: string | null;
 };

@@ -63,25 +63,20 @@ export interface HeaderProps {}
 
 export default function Header(props: HeaderProps) {
   return (
-    <header className="h-20 w-full bg-primary flex items-center justify-between py-2 pl-24 pr-32 fixed top-0 left-0 z-10">
+    <header className="h-[81px] w-full bg-primary flex items-center justify-between py-2 pl-[5.95rem] pr-[8.7rem] fixed top-0 left-0 z-10">
       <div>
-        <Image src="/images/logo.png" width={160} height={70} className="object-cover cursor-pointer" alt="img"></Image>
+        <Image src="/images/logo.png" width={168} height={70} className="object-cover cursor-pointer" alt="img"></Image>
       </div>
-      <div className="text-white">
-        <ul className="flex gap-4 items-center text-lg font-medium">
-          <li className="flex items-center gap-2 cursor-pointer relative group">
-            <div className="hover:opacity-70 transition-all">
+      <div className="text-white pt-[6px]">
+        <ul className="flex gap-[22px] items-center text-[17px] font-medium">
+          <li className="flex items-center gap-4 cursor-pointer relative group">
+            <div className="hover:opacity-70 transition-all flex items-center">
               Get Started{" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="currentColor"
-                className="w-3 h-3 mt-[2px]"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
+              <div className="mt-[2px] ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={4} stroke="currentColor" className="w-3 h-3">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
             </div>
             <div className="absolute top-full -left-[0.5rem] opacity-0 invisible min-w-[360px] bg-[#3c4656] py-5 border-0 border-solid border-t-[3px] border-[#e54754] text-white transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:visible">
               <ul className="list-none">
@@ -98,9 +93,9 @@ export default function Header(props: HeaderProps) {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth={3}
+                        strokeWidth={4}
                         stroke="currentColor"
-                        className="w-3 h-3 mt-[2px]"
+                        className="w-3 h-3"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                       </svg>
@@ -127,18 +122,13 @@ export default function Header(props: HeaderProps) {
             </div>
           </li>
           <li className="flex items-center gap-2 cursor-pointer relative group">
-            <div className="hover:opacity-70 transition-all">
+            <div className="hover:opacity-70 transition-all flex items-center">
               Club Members{" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="currentColor"
-                className="w-3 h-3 mt-[2px]"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
+              <div className="mt-[2px] ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={4} stroke="currentColor" className="w-3 h-3">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
             </div>
             <div className="absolute top-full -left-[0.5rem] opacity-0 invisible min-w-[360px] bg-[#3c4656] py-5 border-0 border-solid border-t-[3px] border-[#e54754] text-white transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:visible">
               <ul className="list-none">
@@ -155,9 +145,9 @@ export default function Header(props: HeaderProps) {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth={3}
+                        strokeWidth={4}
                         stroke="currentColor"
-                        className="w-3 h-3 mt-[2px]"
+                        className="w-3 h-3"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                       </svg>

@@ -2,44 +2,26 @@
 
 import authApi from "@/apis/auth.api";
 import { useQuery } from "@tanstack/react-query";
-import { Space, Table, Tag } from "antd";
+import { Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import * as React from "react";
-import { useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-
-export interface UserRegistration {
-  parentFirstName: string;
-  parentLastName: string;
-  parentEmail: number;
-  address: string;
-  city: string;
-}
+import { User } from "@/types/user.type";
 
 export interface ListProps {}
 
 export default function List(props: ListProps) {
-  const [users, setUsers] = useState<UserRegistration[]>([]);
-
-  const { data, isLoading } = useQuery({
+  const { data: usersData, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: authApi.listUsers,
   });
+  const users = usersData?.data.data;
 
-  useEffect(() => {
-    if (data) {
-      setUsers(data.data.data);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  const columns: ColumnsType<UserRegistration> = [
+  const columns: ColumnsType<User> = [
     {
       title: "Parent Name",
       dataIndex: "parentName",
       key: "name",
-      render: (text, record) =>
-        `${record.parentFirstName} ${record.parentLastName}`,
+      render: (text, record) => `${record.parentFirstName} ${record.parentLastName}`,
     },
     {
       title: "Email",

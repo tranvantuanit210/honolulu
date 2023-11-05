@@ -8,7 +8,7 @@ import MainLayout from "@/layouts/MainLayout";
 import FormProvider from "@/contexts/form.context";
 import ProviderQueryClient from "@/config/QueryClientConfig";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
@@ -20,7 +20,7 @@ export const metadata = {
 
 const RootLayout = ({ children }: React.PropsWithChildren) => (
   <html lang="en">
-    <body className={inter.className} suppressHydrationWarning={true}>
+    <body className={poppins.className} suppressHydrationWarning={true}>
       <ThemeConfigProvider>
         <StyledComponentsRegistry>
           <ProviderQueryClient>

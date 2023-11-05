@@ -8,7 +8,7 @@ export interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center bg-app bg-cover">
+    <div className="min-h-screen flex flex-col justify-between items-center bg-app bg-auto bg-top">
       <Header />
       <div className="h-20"></div>
       <main>{children}</main>

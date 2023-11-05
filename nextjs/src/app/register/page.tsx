@@ -1,13 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "antd";
-import Link from "next/link";
-import { DataForm } from "@/types/form.type";
+import { DataForm, DataFormBody } from "@/types/form.type";
 import FormInfo, { DataFormInfo } from "@/components/form/FormInfo";
-import FormSignature, {
-  DataFormSignature,
-} from "@/components/form/FormSignnature";
+import FormSignature, { DataFormSignature } from "@/components/form/FormSignnature";
 import FormSubmit, { DataFormSubmit } from "@/components/form/FormSubmit";
 import { initFormValue } from "@/data/form.data";
 import FormStudent1, { DataFormST1 } from "@/components/form/FormStudent1";
@@ -17,6 +13,9 @@ import FormStudent4, { DataFormST4 } from "@/components/form/FormStudent4";
 import dayjs from "dayjs";
 import { omit } from "lodash";
 import FormStudent5, { DataFormST5 } from "@/components/form/FormStudent5";
+import Thank from "@/components/form/Thank";
+import { useMutation } from "@tanstack/react-query";
+import authApi from "@/apis/auth.api";
 
 export interface RegisterProps {}
 
@@ -92,6 +91,10 @@ export default function Register(props: RegisterProps) {
     payPlan: values.payPlan,
   };
 
+  const registerMutation = useMutation({
+    mutationFn: (body: DataFormBody) => authApi.register(body),
+  });
+
   const onNext = (step: number | null, data: Record<keyof DataForm, any>) => {
     setStep(step);
     setValues({ ...values, ...data });
@@ -106,58 +109,40 @@ export default function Register(props: RegisterProps) {
     const dataSubmitForm = omit(
       {
         ...values,
-        student1BirthDate:
-          values.student1BirthDate &&
-          dayjs(values.student1BirthDate).format("YYYY-MM-DD"),
-        student1ParticipateType:
-          values.student1ParticipateType &&
-          values.student1ParticipateType.join(", "),
-        student2BirthDate:
-          values.student2BirthDate &&
-          dayjs(values.student2BirthDate).format("YYYY-MM-DD"),
-        student2ParticipateType:
-          values.student2ParticipateType &&
-          values.student2ParticipateType.join(", "),
-        student3BirthDate:
-          values.student3BirthDate &&
-          dayjs(values.student3BirthDate).format("YYYY-MM-DD"),
-        student3ParticipateType:
-          values.student3ParticipateType &&
-          values.student3ParticipateType.join(", "),
-        student4BirthDate:
-          values.student4BirthDate &&
-          dayjs(values.student4BirthDate).format("YYYY-MM-DD"),
-        student4ParticipateType:
-          values.student4ParticipateType &&
-          values.student4ParticipateType.join(", "),
-        student5BirthDate:
-          values.student5BirthDate &&
-          dayjs(values.student5BirthDate).format("YYYY-MM-DD"),
-        student5ParticipateType:
-          values.student5ParticipateType &&
-          values.student5ParticipateType.join(", "),
-        signDate:
-          values.signDate && dayjs(values.signDate).format("YYYY-MM-DD"),
+        student1BirthDate: values.student1BirthDate && dayjs(values.student1BirthDate).format("YYYY-MM-DD"),
+        student1ParticipateType: values.student1ParticipateType && values.student1ParticipateType.join(", "),
+        student2BirthDate: values.student2BirthDate && dayjs(values.student2BirthDate).format("YYYY-MM-DD"),
+        student2ParticipateType: values.student2ParticipateType && values.student2ParticipateType.join(", "),
+        student3BirthDate: values.student3BirthDate && dayjs(values.student3BirthDate).format("YYYY-MM-DD"),
+        student3ParticipateType: values.student3ParticipateType && values.student3ParticipateType.join(", "),
+        student4BirthDate: values.student4BirthDate && dayjs(values.student4BirthDate).format("YYYY-MM-DD"),
+        student4ParticipateType: values.student4ParticipateType && values.student4ParticipateType.join(", "),
+        student5BirthDate: values.student5BirthDate && dayjs(values.student5BirthDate).format("YYYY-MM-DD"),
+        student5ParticipateType: values.student5ParticipateType && values.student5ParticipateType.join(", "),
+        signDate: values.signDate && dayjs(values.signDate).format("YYYY-MM-DD"),
         payPlan: data.payPlan,
       },
-      [
-        "agree",
-        "anotherStudent1",
-        "anotherStudent2",
-        "anotherStudent3",
-        "anotherStudent4",
-      ]
+      ["agree", "anotherStudent1", "anotherStudent2", "anotherStudent3", "anotherStudent4"]
     );
-    console.log(dataSubmitForm);
+    registerMutation.mutate(dataSubmitForm, {
+      onSuccess: (data) => {
+        setStep(6);
+        console.log(data);
+      },
+      onError: (error) => {
+        console.log(error);
+        setStep(6);
+      },
+    });
   };
 
   const handleLastNumber = (value: number) => {
     setLastNumberForm(value);
   };
   return (
-    <div className="flex flex-col items-center gap-6 py-24">
+    <div className="flex flex-col items-center pt-[5.5rem] pb-[640px]">
       <h1 className="font-bold text-[88px] text-white">JOIN TODAY</h1>
-      <div className="w-[750px] max-h-[930px] overflow-y-auto">
+      <div className="w-[750px] max-h-[930px] overflow-y-auto mt-[2.7rem] mr-10">
         <div className="bg-[#dd3643] text-white p-5 flex flex-col gap-4">
           <div className="flex flex-col text-xl">
             <p>HNL S+D 2023-2024</p>
@@ -168,53 +153,13 @@ export default function Register(props: RegisterProps) {
           <span className="mb-4 text-xs text-[#242424]">
             <span className="text-red-500">*</span> Required
           </span>
-          {step === 0 && (
-            <FormInfo
-              onNext={onNext}
-              data={dataFormInfo}
-              handleLastNumber={handleLastNumber}
-            />
-          )}{" "}
-          {step === 1 && (
-            <FormStudent1
-              onNext={onNext}
-              data={dataFormST1}
-              onBack={onBack}
-              handleLastNumber={handleLastNumber}
-            />
-          )}
-          {step === 2 && (
-            <FormStudent2
-              onNext={onNext}
-              data={dataFormST2}
-              onBack={onBack}
-              handleLastNumber={handleLastNumber}
-            />
-          )}
-          {step === 3 && (
-            <FormStudent3
-              onNext={onNext}
-              data={dataFormST3}
-              onBack={onBack}
-              handleLastNumber={handleLastNumber}
-            />
-          )}
-          {step === 4 && (
-            <FormStudent4
-              onNext={onNext}
-              data={dataFormST4}
-              onBack={onBack}
-              handleLastNumber={handleLastNumber}
-            />
-          )}
-          {step === 5 && (
-            <FormStudent5
-              onNext={onNext}
-              data={dataFormST5}
-              onBack={onBack}
-              handleLastNumber={handleLastNumber}
-            />
-          )}
+          {step === 0 && <FormInfo onNext={onNext} data={dataFormInfo} handleLastNumber={handleLastNumber} />}{" "}
+          {step === 1 && <FormStudent1 onNext={onNext} data={dataFormST1} onBack={onBack} handleLastNumber={handleLastNumber} />}
+          {step === 2 && <FormStudent2 onNext={onNext} data={dataFormST2} onBack={onBack} handleLastNumber={handleLastNumber} />}
+          {step === 3 && <FormStudent3 onNext={onNext} data={dataFormST3} onBack={onBack} handleLastNumber={handleLastNumber} />}
+          {step === 4 && <FormStudent4 onNext={onNext} data={dataFormST4} onBack={onBack} handleLastNumber={handleLastNumber} />}
+          {step === 5 && <FormStudent5 onNext={onNext} data={dataFormST5} onBack={onBack} handleLastNumber={handleLastNumber} />}
+          {step === 6 && <Thank />}
           {step === null ? (
             <FormSignature
               onNext={onNext}
@@ -231,6 +176,7 @@ export default function Register(props: RegisterProps) {
               lastNumberForm={lastNumberForm}
               handleLastNumber={handleLastNumber}
               data={dataSubmit}
+              isLoading={registerMutation.isPending}
             />
           )}
         </div>
