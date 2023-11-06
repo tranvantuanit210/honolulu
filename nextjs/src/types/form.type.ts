@@ -65,15 +65,4 @@ export type DataFormBody = Omit<
   | "anotherStudent2"
   | "anotherStudent3"
   | "anotherStudent4"
-  | "student1ParticipateType"
-  | "student2ParticipateType"
-  | "student3ParticipateType"
-  | "student4ParticipateType"
-  | "student5ParticipateType"
-> & {
-  student1ParticipateType: string | null;
-  student2ParticipateType: string | null;
-  student3ParticipateType: string | null;
-  student4ParticipateType: string | null;
-  student5ParticipateType: string | null;
-};
+>;

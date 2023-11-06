@@ -366,7 +366,7 @@ export default function FormSignature({
             format="YYYY-MM-DD"
             className="w-full border-0 border-b-2 text-base border-transparent hover:border-b-2 transition-none"
             size="large"
-            placeholder="Please input date (MM/dd/yyyy)"
+            placeholder="Please input date (M/dd/yyyy)"
           />
         </Form.Item>
 

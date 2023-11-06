@@ -18,22 +18,6 @@ export default function Thank(props: ThankProps) {
           Submit another response
         </Link>
       </div>
-      <div className="text-xs flex flex-col gap-6 my-10">
-        <p className="text-[#0693e3]">Create my own form</p>
-        <div>
-          <p>Powered by Microsoft Forms |</p>
-          <p>
-            The owner of this form has not provided a privacy statement as to how they will use your response data. Do not provide personal or
-            sensitive information.
-          </p>
-          <p>
-            |{" "}
-            <Link href="https://go.microsoft.com/fwlink/?linkid=866263" target="_blank" className="text-[#0693e3]">
-              Terms of use
-            </Link>
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
