@@ -1,34 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserM } from 'src/domains/model/user';
-import { UserRepository } from 'src/domains/repositories/user.repository';
-import { CreateUserDto } from 'src/presentations/user/dto/create-user.dto';
+import { CreateUserDto } from 'src/applications/user/create-user.dto';
 import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
-import { RegisterUserDto } from 'src/presentations/user/dto/register-user.dto';
+import { RegisterUserDto } from 'src/applications/user/register-user.dto';
+import { User } from 'src/domains/entities/user';
+import { IUserRepository } from 'src/domains/repositories/user.repository.i';
+import { UserTable } from '../schema/user.table';
 
 @Injectable()
-export class UserRepositoryOrm implements UserRepository {
+export class UserRepository implements IUserRepository {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserTable)
+    private readonly userRepository: Repository<UserTable>,
   ) {}
 
-  async getAllUsers(): Promise<UserM[]> {
+  async getAllUsers(): Promise<User[]> {
     const users = await this.userRepository.find();
     return users.map((user) => this.toUser(user));
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<UserM> {
-    const user = new User();
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    const user = new UserTable();
     user.parentFirstName = createUserDto.parentFirstName;
     user.parentLastName = createUserDto.parentLastName;
     user.parentEmail = createUserDto.parentEmail;
     return this.userRepository.save(user);
   }
 
-  async registerUser(registerUserDto: RegisterUserDto): Promise<UserM> {
-    const user = new User();
+  async registerUser(registerUserDto: RegisterUserDto): Promise<User> {
+    const user = new UserTable();
 
     // Assign parent properties
     user.parentFirstName = registerUserDto.parentFirstName;
@@ -59,8 +59,8 @@ export class UserRepositoryOrm implements UserRepository {
     return this.userRepository.save(user);
   }
 
-  private toUser(userEntity: User): UserM {
-    const user: UserM = new UserM();
+  private toUser(userEntity: UserTable): User {
+    const user: User = new User();
 
     user.id = userEntity.id;
     user.parentFirstName = userEntity.parentFirstName;

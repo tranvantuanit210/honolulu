@@ -1,9 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import * as React from "react";
 
 export interface ThankProps {}
 
 export default function Thank(props: ThankProps) {
+  const handleClick = () => {
+    window.location.reload();
+  }
+
   return (
     <div>
       <div className="flex flex-col gap-6 mt-8">
@@ -14,7 +20,7 @@ export default function Thank(props: ThankProps) {
           <h1 className="text-[2rem] font-semibold">Thanks!</h1>
         </div>
         <p className="text-base">Your response was submitted.</p>
-        <Link href="#" className="text-[#0693e3] text-sm no-underline">
+        <Link href="#" onClick={handleClick} className="text-[#0693e3] text-sm no-underline">
           Submit another response
         </Link>
       </div>

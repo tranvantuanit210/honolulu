@@ -1,21 +1,21 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
-import { GetAllUserUseCases } from 'src/applications/use-cases/getAllUsers.usecase';
-import { CreateUserUseCases } from 'src/applications/use-cases/createUser.usecase';
 import { UseCaseProxy } from 'src/infrastructures/usecase-proxy/usecase-proxy';
 import { UsecaseProxyModule } from 'src/infrastructures/usecase-proxy/usecase-proxy.module';
-import { CreateUserDto } from './dto/create-user.dto';
-import { RegisterUserUseCases } from 'src/applications/use-cases/registerUser.usecase';
-import { RegisterUserDto } from './dto/register-user.dto';
+import { CreateUserDto } from '../../applications/user/create-user.dto';
+import { RegisterUserDto } from '../../applications/user/register-user.dto';
+import { CreateUserUseCase } from 'src/applications/user/create-user.usecase';
+import { GetRegistrationsUseCase } from 'src/applications/user/get-registrations.usecase';
+import { RegisterUserUseCase } from 'src/applications/user/register-user.usecase';
 
 @Controller('users')
 export class UserController {
   constructor(
     @Inject(UsecaseProxyModule.GET_ALL_USERS_USE_CASE)
-    private readonly getUserUsecaseProxy: UseCaseProxy<GetAllUserUseCases>,
+    private readonly getUserUsecaseProxy: UseCaseProxy<GetRegistrationsUseCase>,
     @Inject(UsecaseProxyModule.CREATE_USER_USE_CASE)
-    private readonly createUserUsecaseProxy: UseCaseProxy<CreateUserUseCases>,
+    private readonly createUserUsecaseProxy: UseCaseProxy<CreateUserUseCase>,
     @Inject(UsecaseProxyModule.REGISTER_USER_USE_CASE)
-    private readonly registerUserUsecaseProxy: UseCaseProxy<RegisterUserUseCases>,
+    private readonly registerUserUsecaseProxy: UseCaseProxy<RegisterUserUseCase>,
   ) {}
 
   @Get('')

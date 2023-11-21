@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DatabaseConfig } from 'src/domains/config/database.interface';
 import * as dotenv from 'dotenv';
+import { IDatabaseConfig } from 'src/domains/config/database-config.i';
 dotenv.config();
 
 @Injectable()
-export class EnvironmentConfigService implements DatabaseConfig {
+export class EnvironmentConfigService implements IDatabaseConfig {
   constructor(private configService: ConfigService) {}
   getDatabaseType(): string {
     return this.configService.get<string>('DATABASE_HOST');

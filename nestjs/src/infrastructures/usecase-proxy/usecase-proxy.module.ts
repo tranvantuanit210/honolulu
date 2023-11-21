@@ -1,11 +1,12 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { CreateUserUseCases } from 'src/applications/use-cases/createUser.usecase';
-import { GetAllUserUseCases } from 'src/applications/use-cases/getAllUsers.usecase';
+import { GetRegistrationsUseCase } from 'src/applications/user/get-registrations.usecase';
 import { EnvironmentConfigModule } from '../config/environment-config/environment-config.module';
 import { RepositoriesModule } from '../repositories/repositories.module';
-import { UserRepositoryOrm } from '../repositories/user.repository';
+import { UserRepository } from '../repositories/user.repository';
 import { UseCaseProxy } from './usecase-proxy';
-import { RegisterUserUseCases } from 'src/applications/use-cases/registerUser.usecase';
+import { RegisterUserUseCase } from 'src/applications/user/register-user.usecase';
+import { RegistrationRepository } from '../repositories/registration.repository';
+import { CreateUserUseCase } from 'src/applications/user/create-user.usecase';
 
 @Module({
   imports: [EnvironmentConfigModule, RepositoriesModule],
@@ -20,22 +21,24 @@ export class UsecaseProxyModule {
       module: UsecaseProxyModule,
       providers: [
         {
-          inject: [UserRepositoryOrm],
+          inject: [RegistrationRepository],
           provide: UsecaseProxyModule.GET_ALL_USERS_USE_CASE,
-          useFactory: (userRepository: UserRepositoryOrm) =>
-            new UseCaseProxy(new GetAllUserUseCases(userRepository)),
+          useFactory: (registrationRepository: RegistrationRepository) =>
+            new UseCaseProxy(
+              new GetRegistrationsUseCase(registrationRepository),
+            ),
         },
         {
-          inject: [UserRepositoryOrm],
+          inject: [UserRepository],
           provide: UsecaseProxyModule.CREATE_USER_USE_CASE,
-          useFactory: (userRepository: UserRepositoryOrm) =>
-            new UseCaseProxy(new CreateUserUseCases(userRepository)),
+          useFactory: (userRepository: UserRepository) =>
+            new UseCaseProxy(new CreateUserUseCase(userRepository)),
         },
         {
-          inject: [UserRepositoryOrm],
+          inject: [RegistrationRepository],
           provide: UsecaseProxyModule.REGISTER_USER_USE_CASE,
-          useFactory: (userRepository: UserRepositoryOrm) =>
-            new UseCaseProxy(new RegisterUserUseCases(userRepository)),
+          useFactory: (registrationRepository: RegistrationRepository) =>
+            new UseCaseProxy(new RegisterUserUseCase(registrationRepository)),
         },
       ],
       exports: [
