@@ -4,8 +4,8 @@ import "./globals.css";
 import StyledComponentsRegistry from "../lib/AntdRegistry";
 import ThemeConfigProvider from "@/config/ThemeConfig";
 import FormProvider from "@/contexts/form.context";
-import ProviderQueryClient from "@/config/QueryClientConfig";
 import localFont from "next/font/local";
+import { ApolloWrapper } from "./../lib/ApolloWrapper";
 
 const poppins = localFont({
   src: [
@@ -58,9 +58,9 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
     <body className={poppins.className} suppressHydrationWarning={true}>
       <ThemeConfigProvider>
         <StyledComponentsRegistry>
-          <ProviderQueryClient>
+          <ApolloWrapper>
             <FormProvider>{children}</FormProvider>
-          </ProviderQueryClient>
+          </ApolloWrapper>
         </StyledComponentsRegistry>
       </ThemeConfigProvider>
     </body>

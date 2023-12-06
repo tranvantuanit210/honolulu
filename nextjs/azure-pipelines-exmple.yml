@@ -1,0 +1,60 @@
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  dockerRegistryServiceConnection: '69d6c771-e23c-485a-8e42-8e8269295dda'
+  imageRepository: 'hsd-fe'
+  containerRegistry: 'hsdcontainerregistry.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: 'latest'
+  appName: 'hsd-fe'
+  azureServiceConnection: 'HNL SD connection'
+  resourceGroup: 'hsd-resource-group'
+
+pool: 
+  vmImage: $(vmImageName)
+
+stages:
+- stage: Build
+  jobs:
+  - job: Docker_build_push
+    steps:
+    - task: Docker@2
+      displayName: Build & Push Docker Image  
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+          
+
+- stage: Deploy
+  jobs:
+  - job: AppService_deploy
+    steps:
+    - task: AzureWebAppContainer@1
+      displayName: Deploy to Azure Web App
+      inputs: 
+        azureSubscription: $(azureServiceConnection)
+        appName: $(appName)
+        containers: '$(containerRegistry)/$(imageRepository):$(tag)'
+
+
+- stage: Restart
+  jobs:
+  - job: AppService_restart
+    steps:
+    - task: AzureCLI@2
+      displayName: Restart App Service
+      inputs:
+        azureSubscription: $(azureServiceConnection)
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+         az webapp restart --name $(appName) --resource-group $(resourceGroup)

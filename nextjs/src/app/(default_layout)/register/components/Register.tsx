@@ -13,9 +13,9 @@ import { REGISTRATION_TOURNAMENT } from "@/graphql/registration/registration.gra
 import { useMutation } from "@apollo/client";
 import FormStudent from "@/components/form/FormStudent";
 
-export interface RegisterEmbedProps {}
+export interface RegisterProps {}
 
-export default function RegisterEmbed(props: RegisterEmbedProps) {
+export default function Register(props: RegisterProps) {
   const formRef = useRef(null);
   const [step, setStep] = useState<number | null>(0);
   const [values, setValues] = useState<DataForm>(initFormValue);
@@ -134,8 +134,9 @@ export default function RegisterEmbed(props: RegisterEmbedProps) {
     setLastNumberForm(value);
   };
   return (
-    <div className="flex flex-col items-center">
-      <div ref={formRef} className="w-full">
+    <div className="flex flex-col items-center pt-[5.5rem] pb-[640px]">
+      <h1 className="font-bold text-[88px] text-white">JOIN TODAY</h1>
+      <div ref={formRef} className="w-[750px] max-h-[930px] overflow-y-auto mt-[2.7rem] mr-10 tuan">
         <div className="bg-[#dd3643] text-white p-5 flex flex-col gap-4">
           <div className="flex flex-col text-xl">
             <p>HNL S+D 2023-2024</p>

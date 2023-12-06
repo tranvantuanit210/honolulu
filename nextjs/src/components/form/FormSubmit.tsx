@@ -19,13 +19,19 @@ export type DataFormSubmit = Pick<DataForm, "payPlan">;
 
 export default function FormSubmit({ onSubmit, onBack, data, lastNumberForm, handleLastNumber, isLoading }: FormSubmitProps) {
   const [form] = useForm();
-  const onFinish = (values: DataFormSubmit) => {
-    onSubmit(values);
-  };
 
   useEffect(() => {
     form.setFieldsValue(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onFinish = (values: DataFormSubmit) => {
+    onSubmit(values);
+  };
+  const handleBack = () => {
+    onBack(null);
+    handleLastNumber(lastNumberForm - 9);
+  };
   return (
     <div>
       <p className="text-lg text-[#c4303b] my-3">Fee Structure</p>
@@ -57,14 +63,7 @@ export default function FormSubmit({ onSubmit, onBack, data, lastNumberForm, han
         </Form.Item>
         <Form.Item className="mb-0 mt-12">
           <div className="flex items-center gap-6">
-            <Button
-              type="default"
-              className="w-1/2 h-10"
-              onClick={() => {
-                onBack(null);
-                handleLastNumber(lastNumberForm - 9);
-              }}
-            >
+            <Button type="default" className="w-1/2 h-10" onClick={handleBack}>
               Back
             </Button>
             <Button loading={isLoading} type="primary" htmlType="submit" className="w-1/2 h-10">

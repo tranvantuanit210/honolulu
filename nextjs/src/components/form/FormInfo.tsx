@@ -24,6 +24,7 @@ export default function FormInfo({ onNext, data, handleLastNumber }: Form1Props)
 
   useEffect(() => {
     form.setFieldsValue(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
